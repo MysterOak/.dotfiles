@@ -1,11 +1,11 @@
 # TODO
-- [] Integrate secrets management -> [sops-nix](https://github.com/Mic92/sops-nix)
-- [] Improve documentation -> comments and readme (maybe docs folder?)
-- [] Clean up one-click install+deployment
-- [] Test one-click install+deployment
-- [] Make everything into options (programs, services, etc.) to make each host config more modular/easier to comprehend
-- [] Finish & polish the server config
-- [] GitOps -> [comin](https://github.com/nlewo/comin/tree/main)
+- [ ] Integrate secrets management -> [sops-nix](https://github.com/Mic92/sops-nix)
+- [ ] Improve documentation -> comments and readme (maybe docs folder?)
+- [ ] Clean up one-click install+deployment
+- [ ] Test one-click install+deployment
+- [ ] Make everything into options (programs, services, etc.) to make each host config more modular/easier to comprehend
+- [ ] Finish & polish the server config
+- [ ] GitOps -> [comin](https://github.com/nlewo/comin/tree/main)
 
 # Installation
 
