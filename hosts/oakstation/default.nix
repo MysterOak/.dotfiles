@@ -3,19 +3,26 @@
 {
   imports =
     [
-      ./hardware-configuration.nix
-
       ../common
       ../common/desktop
       ../common/desktop/gnome.nix
+      ../common/hw-conf-amd.nix
 
-      #./disko-config.nix
+      ./disko-config.nix
     ];
 
   networking.hostName = "oakstation";
   networking.hostId = "c2a85637";
 
   services.xserver.videoDrivers = ["amdgpu"];
+
+
+  services.openssh.hostKeys = [
+    {
+      path = "/persist/etc/ssh/oakstation";
+      type = "ed25519";
+    }
+  ];
 
   # Install firefox.
   programs.firefox.enable = true;

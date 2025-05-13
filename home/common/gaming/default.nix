@@ -1,5 +1,8 @@
+{ pkgs, ... }:
 {
   imports = [
-    ./gaming.nix
+  ];
+  home.packages = with pkgs; [
+    beyond-all-reason
   ];
 }

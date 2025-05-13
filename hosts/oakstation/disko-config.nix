@@ -4,7 +4,7 @@
     disk = {
 
       boot-disk = {
-        device = "/dev/nvme0n1";
+        device = "/dev/disk/by-id/nvme-CT1000P1SSD8_20222876D1D7";
         type = "disk";
         content = {
 
@@ -24,7 +24,7 @@
             };
 
             swap = {
-              size = "64G";
+              size = "48G"; # 1.5x RAM
               type = "8200";
               content = {
                 type = "swap";

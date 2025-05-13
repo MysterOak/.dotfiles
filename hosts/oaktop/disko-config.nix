@@ -24,7 +24,7 @@
             };
 
             swap = {
-              size = "32G";
+              size = "32G"; #maybe lower this to 1.5x RAM -> 24G
               type = "8200";
               content = {
                 type = "swap";

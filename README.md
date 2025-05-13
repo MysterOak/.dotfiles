@@ -2,9 +2,10 @@
 - [ ] Integrate secrets management -> [sops-nix](https://github.com/Mic92/sops-nix)
 - [ ] Improve documentation -> comments and readme (maybe docs folder?)
 - [ ] Clean up one-click install+deployment
-- [ ] Test one-click install+deployment
+- [x] ~~Test one-click install+deployment~~ -> oaktop worked perfectly from iso (from live didn't work)
 - [ ] Make everything into options (programs, services, etc.) to make each host config more modular/easier to comprehend
 - [ ] Finish & polish the server config
+- [ ] Integrate ricing into dotfiles
 - [ ] GitOps -> [comin](https://github.com/nlewo/comin/tree/main)
 
 # Installation on empty machine

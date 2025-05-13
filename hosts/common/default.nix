@@ -1,4 +1,4 @@
-{ pkgs,... }:
+{ lib, pkgs,... }:
 {
 
   imports = [
@@ -8,6 +8,20 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.supportedFilesystems = ["zfs"];
+
+  security.sudo.extraConfig = ''
+    # rollback results in sudo lectures after each reboot
+    Defaults lecture = never
+  '';
+
+  services.zfs.autoScrub.enable = true;
+
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+      zfs rollback -r zroot/local/root@empty
+    '';
+
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";

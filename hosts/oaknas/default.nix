@@ -3,7 +3,7 @@
   imports = [
     ../common
     ../common/server
-    ../common/hw-conf-vm.nix
+    ../common/hw-conf-intel.nix
 
     ./disko-config.nix
   ];

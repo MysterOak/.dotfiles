@@ -19,12 +19,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
-    #hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, disko, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, disko, hyprland, hyprpanel, ... }@inputs:
 
   let
 
@@ -88,7 +88,12 @@
 
       "mysteroak@oakstation" = home-manager.lib.homeManagerConfiguration {
 
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = [
+            hyprpanel.overlay
+          ];
+        };
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           #nix-flatpak.homeManagerModules.nix-flatpak
@@ -99,7 +104,12 @@
 
       "mysteroak@oaktop" = home-manager.lib.homeManagerConfiguration {
 
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = [
+            hyprpanel.overlay
+          ];
+        };
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home/mysteroak/oaktop.nix
