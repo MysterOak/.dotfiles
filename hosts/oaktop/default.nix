@@ -16,8 +16,8 @@
       zfs rollback -r zroot/local/root@empty
     '';
 
-  etc."NetworkManager/system-connections" = {
-    source = "/persist/etc/NetworkManager/system-connections/";
+  environment.etc = {
+    "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections/";
   };
 
   systemd.tmpfiles.rules = [
