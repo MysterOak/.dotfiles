@@ -8,12 +8,14 @@
       ../common
       ../common/desktop
       ../common/desktop/gnome.nix
-      ../common/desktop/steam.nix
 
-      ./disko-config.nix
+      #./disko-config.nix
     ];
 
   networking.hostName = "oakstation";
+  networking.hostId = "c2a85637";
+
+  services.xserver.videoDrivers = ["amdgpu"];
 
   # Install firefox.
   programs.firefox.enable = true;

@@ -10,7 +10,6 @@
 
   home.packages = with pkgs; [
     fastfetch
-    signal-desktop
   ];
 
 

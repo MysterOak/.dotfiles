@@ -2,7 +2,8 @@
 {
   imports = [
     ../mysteroak
-    ../common/gaming.nix
-    ../common/dev.nix
+    ../common/gaming
+    ../common/dev
   ];
+
 }

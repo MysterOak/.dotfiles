@@ -7,7 +7,7 @@
 - [ ] Finish & polish the server config
 - [ ] GitOps -> [comin](https://github.com/nlewo/comin/tree/main)
 
-# Installation
+# Installation on empty machine
 
 0. Clone the repo to an existing machine with nix
 ```bash
@@ -27,7 +27,24 @@ This assumes that the `.dotfiles` directory is in `~/.dotfiles`. If not, adjust 
 ```bash
 TARGET = x.x.x.x
 HOSTNAME = your-target-hostname
-nix run github:nix-community/nixos-anywhere -- --flake ".#${HOSTNAME}" --target-host nixos@"${TARGET}"
+nix run github:nix-community/nixos-anywhere -- --flake "~/.dotfiles#${HOSTNAME}" --target-host nixos@"${TARGET}"
 ```
 
 4. Enjoy!
+
+# Installation on existing machine
+
+0. Clone the repo to a (different) existing machine with nix
+```bash
+cd && git clone https://github.com/MysterOak/.dotfiles
+```
+Make sure `~/.dotfiles/.iso/default.nix` contains a valid ssh key!! (/ or have ssh password auth enabled for an admin user)
+
+1. Run nixos-anywhere, replace the target ip & the hostname with the values of the target
+```bash
+TARGET = x.x.x.x
+HOSTNAME = your-target-hostname
+nix run github:nix-community/nixos-anywhere -- --flake "~/.dotfiles/.#${HOSTNAME}" --target-host root@"${TARGET}"
+```
+
+2. Enjoy!

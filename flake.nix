@@ -13,11 +13,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
     #hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, disko, ... }@inputs:
 
   let
 
@@ -33,6 +40,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
+          #disko.nixosModules.disko
           ./hosts/oakstation
         ];
 
@@ -43,6 +51,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
+          disko.nixosModules.disko
           ./hosts/oaktop
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
         ];
@@ -54,6 +63,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
+          disko.nixosModules.disko
           ./hosts/oaknas
         ];
 
@@ -81,6 +91,7 @@
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
+          #nix-flatpak.homeManagerModules.nix-flatpak
           ./home/mysteroak/oakstation.nix
         ];
 
