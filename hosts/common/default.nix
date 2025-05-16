@@ -1,26 +1,36 @@
-{ lib, pkgs,... }:
+{ pkgs,... }:
 {
 
   imports = [
     ./users
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.supportedFilesystems = ["zfs"];
 
-  security.sudo.extraConfig = ''
-    # rollback results in sudo lectures after each reboot
-    Defaults lecture = never
-  '';
+  boot.kernel.sysctl = { "vm.swappiness" = 10;}; #reduce swappiness from 60 -> 10
 
-  services.zfs.autoScrub.enable = true;
+  zramSwap = {
+    enable = true;
+    priority = 5;
+  };
 
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-      zfs rollback -r zroot/local/root@empty
-    '';
+  services.zfs.trim = {
+    enable = true;
+    interval = "weekly";
+  };
+
+  services.zfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    randomizedDelaySec = "6h";
+  };
+
+
 
 
   # Set your time zone.

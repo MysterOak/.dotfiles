@@ -1,10 +1,12 @@
-{
+let
+  rootDisk = "/dev/disk/by-id/nvme-CT1000P1SSD8_20222876D1D7";
+in {
   disko.devices = {
 
     disk = {
 
       boot-disk = {
-        device = "/dev/disk/by-id/nvme-CT1000P1SSD8_20222876D1D7";
+        device = rootDisk;
         type = "disk";
         content = {
 
@@ -24,10 +26,11 @@
             };
 
             swap = {
-              size = "48G"; # 1.5x RAM
+              size = "48G"; #1.5x RAM
               type = "8200";
               content = {
                 type = "swap";
+                priority = 0;
                 resumeDevice = true;
               };
 
@@ -74,41 +77,33 @@
 
         datasets = {
 
-          local = {
+          root = {
             type = "zfs_fs";
             options.canmount = "off";
           };
 
-          safe = {
-            type = "zfs_fs";
-            options.canmount = "off";
-          };
-
-          "local/root" = {
+          "root/root" = {
             type = "zfs_fs";
             mountpoint = "/";
             options.mountpoint = "/";
-            postCreateHook = ''
-            zfs snapshot zroot/local/root@empty
-            '';
           };
 
-          "local/nix" = {
+          "root/nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
             options.mountpoint = "/nix";
           };
 
-          "safe/home" = {
+          "root/home" = {
             type = "zfs_fs";
             mountpoint = "/home";
             options.mountpoint = "/home";
           };
 
-          "safe/persist" = {
+          "root/games" = { #game storage location
             type = "zfs_fs";
-            mountpoint = "/persist";
-            options.mountpoint = "/persist";
+            mountpoint = "/games";
+            options.mountpoint = "/games";
           };
 
         };

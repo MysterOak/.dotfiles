@@ -16,14 +16,6 @@
 
   services.xserver.videoDrivers = ["amdgpu"];
 
-
-  services.openssh.hostKeys = [
-    {
-      path = "/persist/etc/ssh/oakstation";
-      type = "ed25519";
-    }
-  ];
-
   # Install firefox.
   programs.firefox.enable = true;
 

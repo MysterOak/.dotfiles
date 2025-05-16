@@ -6,13 +6,24 @@
 
   ];
 
-  environment.etc = {
-    "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections/";
-  };
+  boot = {
+      plymouth = {
+        enable = true;
+      };
+      # Enable "Silent boot"
+      consoleLogLevel = 3;
+      initrd.verbose = false;
+      kernelParams = [
+        "quiet"
+        "splash"
+        "boot.shell_on_fail"
+        "udev.log_priority=3"
+        "rd.systemd.show_status=auto"
+      ];
+      loader.timeout = 0;
+    };
 
-  systemd.tmpfiles.rules = [
-      "L /var/lib/bluetooth - - - - /persist/var/lib/bluetooth"
-  ];
+  boot.zfs.allowHibernation = true;
 
   services.flatpak.enable = true;
 }

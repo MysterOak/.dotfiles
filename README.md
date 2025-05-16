@@ -26,8 +26,8 @@ This assumes that the `.dotfiles` directory is in `~/.dotfiles`. If not, adjust 
 
 3. Run nixos-anywhere, replace the target ip & the hostname with the values of the target
 ```bash
-TARGET = x.x.x.x
-HOSTNAME = your-target-hostname
+TARGET=x.x.x.x
+HOSTNAME=your-target-hostname
 nix run github:nix-community/nixos-anywhere -- --flake "~/.dotfiles#${HOSTNAME}" --target-host nixos@"${TARGET}"
 ```
 
