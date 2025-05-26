@@ -74,6 +74,7 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           disko.nixosModules.disko
+          impermanence.nixosModules.impermanence
           ./hosts/oaknas
         ];
 
@@ -102,7 +103,6 @@
         };
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          #nix-flatpak.homeManagerModules.nix-flatpak
           ./home/mysteroak/oakstation.nix
         ];
 
