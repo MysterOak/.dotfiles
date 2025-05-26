@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ inputs, config, lib, ... }:
 {
   imports =
     [
@@ -7,7 +7,13 @@
       ../common/desktop/gnome.nix
       ../common/hardware/hw-conf-intel.nix
 
+      ../common/optional/secureboot.nix
+
       ./disko-config.nix
+
+      inputs.nixos-hardware.nixosModules.common-pc-laptop
+      inputs.nixos-hardware.nixosModules.common-cpu-intel
+      inputs.nixos-hardware.nixosModules.common-gpu-nvidia-disable
     ];
 
   networking.hostName = "oaktop";

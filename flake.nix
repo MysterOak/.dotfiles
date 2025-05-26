@@ -60,9 +60,6 @@
         modules = [
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence
-          nixos-hardware.nixosModules.common-pc-laptop
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-gpu-nvidia-disable
           ./hosts/oaktop
         ];
 

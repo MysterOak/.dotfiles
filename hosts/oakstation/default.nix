@@ -25,10 +25,6 @@
     ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
-
   system.stateVersion = "24.11";
 
 }

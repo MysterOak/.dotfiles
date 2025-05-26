@@ -4,5 +4,7 @@
   ];
   home.packages = with pkgs; [
     beyond-all-reason
+    lutris
+    moonlight-qt
   ];
 }

@@ -1,14 +1,13 @@
 # TODO
-- [ ] Integrate secrets management -> [sops-nix](https://github.com/Mic92/sops-nix)
+- [ ] Integrate secrets management -> [sops-nix](https://github.com/Mic92/sops-nix) / [agenix](https://github.com/ryantm/agenix)
 - [ ] Improve documentation -> comments and readme (maybe docs folder?)
 - [ ] Clean up one-click install+deployment
-- [x] ~~Test one-click install+deployment~~ -> oaktop worked perfectly from iso (from live didn't work)
 - [ ] Make everything into options (programs, services, etc.) to make each host config more modular/easier to comprehend
 - [ ] Finish & polish the server config
 - [ ] Integrate ricing into dotfiles
 - [ ] GitOps -> [comin](https://github.com/nlewo/comin/tree/main)
 
-# Installation on empty machine
+# Installation on an empty machine
 
 0. Clone the repo to an existing machine with nix
 ```bash
@@ -31,9 +30,9 @@ HOSTNAME=your-target-hostname
 nix run github:nix-community/nixos-anywhere -- --flake "~/.dotfiles#${HOSTNAME}" --target-host nixos@"${TARGET}"
 ```
 
-4. Enjoy!
+4. Secureboot [hint](https://github.com/nix-community/lanzaboote/issues/413)
 
-# Installation on existing machine
+# Installation on an existing machine
 
 0. Clone the repo to a (different) existing machine with nix
 ```bash
@@ -48,4 +47,4 @@ HOSTNAME = your-target-hostname
 nix run github:nix-community/nixos-anywhere -- --flake "~/.dotfiles/.#${HOSTNAME}" --target-host root@"${TARGET}"
 ```
 
-2. Enjoy!
+2. Secureboot [hint](https://github.com/nix-community/lanzaboote/issues/413)

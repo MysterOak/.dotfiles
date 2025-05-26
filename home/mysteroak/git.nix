@@ -12,5 +12,4 @@
       #init.defaultBranch = "master";
     };
   };
-
-}
+  }
