@@ -1,12 +1,12 @@
 let
-  rootDisk = "/dev/disk/by-id/nvme-Micron_2200S_NVMe_1024GB__20112700B5DB";
+  disk1 = "/dev/disk/by-id/nvme-Micron_2200S_NVMe_1024GB__20112700B5DB";
 in {
   disko.devices = {
 
     disk = {
 
-      boot-disk = {
-        device = rootDisk;
+      disk1 = {
+        device = disk1;
         type = "disk";
         content = {
 
@@ -77,33 +77,41 @@ in {
 
         datasets = {
 
-          root = {
+          local = {
             type = "zfs_fs";
             options.canmount = "off";
           };
 
-          "root/root" = {
+          safe = {
+            type = "zfs_fs";
+            options.canmount = "off";
+          };
+
+          "local/root" = {
             type = "zfs_fs";
             mountpoint = "/";
             options.mountpoint = "/";
+            postCreateHook = ''
+            zfs snapshot zroot/local/root@empty
+            '';
           };
 
-          "root/nix" = {
+          "local/nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
             options.mountpoint = "/nix";
           };
 
-          "root/home" = {
+          "safe/home" = {
             type = "zfs_fs";
             mountpoint = "/home";
             options.mountpoint = "/home";
           };
 
-          "root/games" = { #game storage location
+          "safe/persist" = {
             type = "zfs_fs";
-            mountpoint = "/games";
-            options.mountpoint = "/games";
+            mountpoint = "/persist";
+            options.mountpoint = "/persist";
           };
 
         };
@@ -113,5 +121,7 @@ in {
     };
 
   };
+
+  fileSystems."/persist".neededForBoot = true;
 
 }

@@ -2,7 +2,6 @@
 {
   imports = [
     ./audio.nix
-    ./localsend.nix
 
   ];
 
@@ -21,9 +20,16 @@
         "rd.systemd.show_status=auto"
       ];
       loader.timeout = 0;
-    };
+  };
 
-  boot.zfs.allowHibernation = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = [
+
+    ];
+  };
+
 
   services.flatpak.enable = true;
 }

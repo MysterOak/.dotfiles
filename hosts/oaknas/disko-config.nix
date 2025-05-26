@@ -9,6 +9,7 @@
         content = {
           type = "gpt";
           partitions = {
+            
             ESP = {
               type = "EF00";
               size = "1G";
@@ -19,6 +20,17 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
+            
+            swap = {
+              size = "16G";
+              type = "8200";
+              content = {
+                type = "swap";
+                priority = 0;
+                resumeDevice = true;
+              };
+            };
+            
             root = {
               size = "100%";
               content = {
@@ -26,6 +38,7 @@
                 pool = "zroot";
               };
             };
+            
           };
         };
       };

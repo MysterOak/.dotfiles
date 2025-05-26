@@ -1,17 +1,46 @@
-{ ... }:
+{ config, lib, ... }:
 {
   imports =
     [
       ../common
       ../common/desktop
-      ../common/desktop/cosmic.nix
-      ../common/hw-conf-intel.nix
+      ../common/desktop/gnome.nix
+      ../common/hardware/hw-conf-intel.nix
 
       ./disko-config.nix
     ];
 
   networking.hostName = "oaktop";
   networking.hostId = "2d5e7676";
+
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  console.earlySetup = true;
+  services.fwupd.enable = lib.mkDefault true;
+  services.thermald.enable = lib.mkDefault true;
+
+  specialisation = {
+    dGPU.configuration = {
+      system.nixos.tags = ["dGPU"];
+
+      services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
+      hardware.nvidia.open = lib.mkOverride 990 (config.hardware.nvidia.package ? open && config.hardware.nvidia.package ? firmware);
+      hardware.nvidia = {
+        powerManagement = {
+          # Enable NVIDIA power management.
+          enable = lib.mkDefault true;
+        };
+      };
+    };
+  };
+
+  environment.persistence."/persist" = {
+    directories = [
+
+    ];
+    files = [
+
+    ];
+  };
 
   system.stateVersion = "24.11";
 }

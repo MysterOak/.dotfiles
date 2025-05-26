@@ -6,7 +6,7 @@
       ../common
       ../common/desktop
       ../common/desktop/gnome.nix
-      ../common/hw-conf-amd.nix
+      ../common/hardware/hw-conf-amd.nix
 
       ./disko-config.nix
     ];
@@ -15,6 +15,15 @@
   networking.hostId = "c2a85637";
 
   services.xserver.videoDrivers = ["amdgpu"];
+
+  environment.persistence."/persist" = {
+    directories = [
+
+    ];
+    files = [
+
+    ];
+  };
 
   # Install firefox.
   programs.firefox.enable = true;

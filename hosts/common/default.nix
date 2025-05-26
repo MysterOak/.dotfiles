@@ -3,37 +3,91 @@
 
   imports = [
     ./users
+    ./global
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.supportedFilesystems = ["zfs"];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernel.sysctl = { "vm.swappiness" = 10;}; #reduce swappiness from 60 -> 10
+    loader = {
+      systemd-boot.enable = true;
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
+    };
+    supportedFilesystems = ["zfs"];
+    zfs = {
+      forceImportRoot = false;
+      allowHibernation = true;
+    };
+    initrd = {
+      network.enable = true;
+      systemd = {
+        enable = true;
+        services.zfs-rollback = {
+          description = "Rollback ZFS root dataset to blank snapshot";
+          wantedBy = [
+            "initrd.target"
+          ];
+          after = [
+            # this is a dynamically generated service, based on the zpool name
+            "zfs-import-zroot.service"
+          ];
+          before = [
+            "sysroot.mount"
+          ];
+          path = with pkgs; [
+            zfs
+          ];
+          unitConfig.DefaultDependencies = "no";
+          serviceConfig.Type = "oneshot";
+          script = ''
+            zfs rollback -r  zroot/local/root@empty && echo "zfs rollback complete"
+          '';
+        };
+      };
+    };
+  };
 
-  boot.kernel.sysctl = { "vm.swappiness" = 10;}; #reduce swappiness from 60 -> 10
+  security.sudo.extraConfig = ''
+    # rollback results in sudo lectures after each reboot
+    Defaults lecture = never
+  '';
 
   zramSwap = {
     enable = true;
     priority = 5;
   };
 
-  services.zfs.trim = {
-    enable = true;
-    interval = "weekly";
+  services.zfs = {
+    trim = {
+      enable = true;
+      interval = "weekly";
+    };
+    autoScrub = {
+      enable = true;
+      interval = "monthly";
+      randomizedDelaySec = "6h";
+    };
   };
 
-  services.zfs.autoScrub = {
-    enable = true;
-    interval = "monthly";
-    randomizedDelaySec = "6h";
+  environment.persistence."/persist" = {
+    directories = [
+      "/etc/nixos"
+      "/etc/NetworkManager/system-connections"
+      "/var/log"
+      "/var/lib/nixos"
+    ];
+    files = [
+      "/etc/machine-id"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+    ];
   };
 
-
-
-
-  # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
   networking.networkmanager.enable = true;
@@ -52,6 +106,9 @@
   };
 
   nix = {
+
+    channel.enable = false;
+
     settings = {
       experimental-features = "nix-command flakes";
       cores = 4;
