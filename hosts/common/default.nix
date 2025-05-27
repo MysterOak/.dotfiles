@@ -92,9 +92,6 @@
 
   networking.networkmanager.enable = true;
 
-  environment.systemPackages = with pkgs; [git];
-
-
   users.mutableUsers = false;
 
   nixpkgs = {

@@ -4,7 +4,9 @@
   ];
   home.packages = with pkgs; [
     beyond-all-reason
-    lutris
     moonlight-qt
   ];
+
+  #programs.lutris.enable = true;
+
 }

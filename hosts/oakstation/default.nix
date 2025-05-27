@@ -8,6 +8,9 @@
       ../common/desktop/gnome.nix
       ../common/hardware/hw-conf-amd.nix
 
+      ../common/optional/steam.nix
+      #../common/optional/secureboot.nix
+
       ./disko-config.nix
     ];
 
