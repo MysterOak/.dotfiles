@@ -8,6 +8,7 @@
       ../common/hardware/hw-conf-intel.nix
 
       ../common/optional/secureboot.nix
+      ../common/optional/localsend.nix
 
       ./disko-config.nix
 
