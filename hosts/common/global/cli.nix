@@ -33,6 +33,7 @@
     skim
     ouch
     macchina
+    cowsay
   ];
 
 }

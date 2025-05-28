@@ -5,7 +5,7 @@
 - [ ] Make everything into options (programs, services, etc.) to make each host config more modular/easier to comprehend
 - [ ] Finish & polish the server config
 - [ ] Integrate ricing into dotfiles
-- [ ] GitOps -> [comin](https://github.com/nlewo/comin/tree/main)
+- [x] GitOps -> [comin](https://github.com/nlewo/comin/tree/main)
 
 # Installation on an empty machine
 
