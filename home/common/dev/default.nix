@@ -11,7 +11,6 @@
 
     zed-editor = {
       enable = true;
-      extensions = ["nix"];
     };
 
     git.delta = {
@@ -21,7 +20,7 @@
     eza = {
       enable = true;
       git = true;
-      icons = true;
+      icons = "auto";
       enableFishIntegration = true;
     };
 
@@ -112,7 +111,6 @@
 
     bottom = {
       enable = true;
-      settings = (builtins.readFile ./bottom.toml);
     };
 
     skim = {
@@ -145,5 +143,6 @@
   ];
 
   home.file.".config/ghostty/config".source = ./ghosttyconfig;
-
+  home.file.".config/zed/settings.json".source = ./zed.json;
+  home.file.".config/bottom/bottom.toml".source = ./bottom.toml;
 }

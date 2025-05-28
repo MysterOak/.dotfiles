@@ -7,5 +7,6 @@
     jellyfin-media-player
     spotify-player
     ncspot
+    foliate
   ];
 }
