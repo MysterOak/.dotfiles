@@ -25,12 +25,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    comin = {
+      url = "github:nlewo/comin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #hyprland.url = "github:hyprwm/Hyprland";
     #hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, disko, impermanence, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, disko, impermanence, comin, ... }@inputs:
 
   let
 
@@ -46,6 +51,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
+          comin.nixosModules.comin
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence
           ./hosts/oakstation
@@ -58,6 +64,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
+          comin.nixosModules.comin
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence
           ./hosts/oaktop
@@ -70,6 +77,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         modules = [
+          comin.nixosModules.comin
           disko.nixosModules.disko
           impermanence.nixosModules.impermanence
           ./hosts/oaknas
